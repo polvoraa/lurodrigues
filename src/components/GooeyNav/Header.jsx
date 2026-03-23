@@ -11,11 +11,17 @@ export default function Header() {
   return (
     <header
       style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
         background: '#111',
         padding: '0.75rem 2rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'hidden',
       }}
     >
       <GooeyNav

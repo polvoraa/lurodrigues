@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <Header />
-      <Hero id="hero"/>
+      <Hero id="Hero"/>
 
       {/* GRID de cards */}
       <div style={{ minHeight: "100vh", background: "#050505", padding: "4rem 2rem" }}>
