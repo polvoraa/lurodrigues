@@ -1,6 +1,13 @@
 import logo from "./assets/vite.svg";
+import Header from "./components/GooeyNav/Header";
 import Hero from "./components/Hero";
 import ChromaGrid from "./components/ChromaGrid";
+import PortifolioSection from "./components/PortfolioSection/PortfolioSection";
+import Lanyard from "./components/Lanyard/Lanyard";
+import AboutSection from "./components/AboutSection/AboutSection";
+
+
+
 import Photo1 from "./assets/photo1.png";
 import Photo2 from "./assets/photo2.jpeg";
 import Photo3 from "./assets/photo3.jpeg";
@@ -39,12 +46,17 @@ const items = [
 function App() {
   return (
     <>
-      <Hero />
+      <Header />
+      <Hero id="hero"/>
 
       {/* GRID de cards */}
       <div style={{ minHeight: "100vh", background: "#050505", padding: "4rem 2rem" }}>
         <ChromaGrid items={items} />
       </div>
+      <AboutSection id="sobre"/>
+
+      <PortifolioSection />
+
     </>
   );
 }

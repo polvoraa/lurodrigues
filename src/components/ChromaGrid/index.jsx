@@ -1,6 +1,13 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Grid, Card, ImageWrapper, Info, Overlay, Fade } from "./styles";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
 
 const ChromaGrid = ({
   items,
@@ -11,13 +18,14 @@ const ChromaGrid = ({
   ease = "power3.out"
 }) => {
   const rootRef = useRef(null);
+  const wrapperRef = useRef(null);
   const fadeRef = useRef(null);
   const setX = useRef(null);
   const setY = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    const el = rootRef.current;
+    const el = wrapperRef.current;
     if (!el) return;
 
     setX.current = gsap.quickSetter(el, "--x", "px");
@@ -44,7 +52,7 @@ const ChromaGrid = ({
   };
 
   const handleMove = (e) => {
-    const r = rootRef.current.getBoundingClientRect();
+    const r = wrapperRef.current.getBoundingClientRect();
     moveTo(e.clientX - r.left, e.clientY - r.top);
     gsap.to(fadeRef.current, { opacity: 0, duration: 0.25 });
   };
@@ -63,39 +71,44 @@ const ChromaGrid = ({
   };
 
   return (
-    <Grid
-      ref={rootRef}
-      style={{
-        "--r": `${radius}px`,
-        "--cols": columns
-      }}
+    <Wrapper
+      ref={wrapperRef}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
     >
-      {items.map((c, i) => (
-        <Card
-          key={i}
-          onMouseMove={handleCardMove}
-          style={{
-            "--card-border": c.borderColor,
-            "--card-gradient": c.gradient
-          }}
-        >
-          <ImageWrapper>
-            <img src={c.image} alt={c.title} />
-          </ImageWrapper>
+      <Grid
+        ref={rootRef}
+        style={{
+          "--r": `${radius}px`,
+          "--cols": columns
+        }}
+      >
+        {items.map((c, i) => (
+          <Card
+            key={i}
+            onMouseMove={handleCardMove}
+            style={{
+              "--card-border": c.borderColor,
+              "--card-gradient": c.gradient
+            }}
+          >
+            <ImageWrapper>
+              <img src={c.image} alt={c.title} />
+            </ImageWrapper>
 
-          <Info>
-            <h3>{c.title}</h3>
-            <span className="handle">{c.handle}</span>
-            <p className="role">{c.subtitle}</p>
-          </Info>
-        </Card>
-      ))}
+            <Info>
+              <h3>{c.title}</h3>
+              <span className="handle">{c.handle}</span>
+              <p className="role">{c.subtitle}</p>
+            </Info>
+          </Card>
+        ))}
+      </Grid>
 
+      {/* Overlay e Fade fora do Grid para não virarem células da grade */}
       <Overlay />
       <Fade ref={fadeRef} />
-    </Grid>
+    </Wrapper>
   );
 };
 

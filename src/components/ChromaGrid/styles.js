@@ -12,10 +12,6 @@ export const Grid = styled.div`
   margin: 0 auto;
   padding: 1rem;
 
-  --x: 50%;
-  --y: 50%;
-  --r: 220px;
-
   @media (max-width: 1124px) {
     grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
     gap: 0.5rem;
@@ -34,6 +30,7 @@ export const Card = styled.article`
   display: flex;
   flex-direction: column;
   width: 320px;
+  height: 420px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #333;
@@ -67,7 +64,9 @@ export const Card = styled.article`
 `;
 
 export const ImageWrapper = styled.div`
+  flex: 1;
   padding: 10px;
+  min-height: 0;
 
   img {
     width: 100%;
@@ -78,6 +77,7 @@ export const ImageWrapper = styled.div`
 `;
 
 export const Info = styled.footer`
+  flex-shrink: 0;
   padding: 0.75rem 1rem;
   color: #fff;
   display: grid;
@@ -90,6 +90,12 @@ export const Info = styled.footer`
   }
 `;
 
+/*
+  Overlay e Fade ficam dentro do Wrapper (position: relative),
+  então inset: 0 os faz cobrir exatamente o mesmo espaço que o Grid.
+  --x e --y são setados no Wrapper pelo gsap, então o radial-gradient
+  acompanha o cursor corretamente sobre todos os cards.
+*/
 export const Overlay = styled.div`
   position: absolute;
   inset: 0;
@@ -97,7 +103,7 @@ export const Overlay = styled.div`
   backdrop-filter: grayscale(1) brightness(0.78);
 
   mask-image: radial-gradient(
-    circle var(--r) at var(--x) var(--y),
+    circle var(--r, 300px) at var(--x, 50%) var(--y, 50%),
     transparent 0%,
     white 100%
   );

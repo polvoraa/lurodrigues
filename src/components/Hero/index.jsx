@@ -1,5 +1,6 @@
 import LiquidEther from "../LiquidEther";
 import { HeroSection, Content, Title, Subtitle } from "./styles";
+import BlurText from '../BlurText/BlurText';
 
 const Hero = () => {
   return (
@@ -23,7 +24,14 @@ const Hero = () => {
 
       {/* 🧠 Conteúdo */}
       <Content>
-        <Title>Luana Rodrigues</Title>
+        <BlurText
+          text="Luana Rodrigues"
+          delay={150}
+          animateBy="words"
+          direction="top"
+          className="text-4xl font-bold"
+          style={{ fontSize: '4rem', fontWeight: 700, color: '#fff' }}
+        />
         <Subtitle>Design • Publicidade • Criatividade</Subtitle>
       </Content>
     </HeroSection>
